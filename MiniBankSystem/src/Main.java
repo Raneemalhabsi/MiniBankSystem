@@ -2,6 +2,14 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+        BankAccount account1 = new BankAccount("Alice", "12345", 1000.0);
+        BankAccount account2 = new BankAccount("Bob", "67890", 500.0);
+
+        System.out.println("Account 1 details:");
+        account1.showAccountInfo();
+
+        System.out.println("\nAccount 2 details:");
+        account2.showAccountInfo();
         Scanner scanner = new Scanner(System.in);
         boolean exit = false;
 
