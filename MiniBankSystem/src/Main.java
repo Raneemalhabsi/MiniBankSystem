@@ -2,15 +2,8 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        BankAccount account1 = new BankAccount("Alice", "12345", 1000.0);
-        BankAccount account2 = new BankAccount("Bob", "67890", 500.0);
-
-        System.out.println("Account 1 details:");
-        account1.showAccountInfo();
-
-        System.out.println("\nAccount 2 details:");
-        account2.showAccountInfo();
         Scanner scanner = new Scanner(System.in);
+        BankAccount currentAccount = null;
         boolean exit = false;
 
         while (!exit) {
@@ -26,24 +19,55 @@ public class Main {
 
             switch (choice) {
                 case 1:
-                    System.out.println("Create a new account selected.");
+                    System.out.print("Enter account name: ");
+                    scanner.nextLine(); // consume leftover newline
+                    String name = scanner.nextLine();
+                    System.out.print("Enter account number: ");
+                    String number = scanner.nextLine();
+                    System.out.print("Enter initial balance: ");
+                    double balance = scanner.nextDouble();
+
+                    currentAccount = new BankAccount(name, number, balance);
+                    System.out.println("Account created successfully.");
                     break;
+
                 case 2:
-                    System.out.println("Deposit money selected.");
+                    if (currentAccount == null) {
+                        System.out.println("No account found. Please create an account first.");
+                    } else {
+                        System.out.print("Enter deposit amount: ");
+                        double depositAmount = scanner.nextDouble();
+                        currentAccount.deposit(depositAmount);
+                    }
                     break;
+
                 case 3:
-                    System.out.println("Withdraw money selected.");
+                    if (currentAccount == null) {
+                        System.out.println("No account found. Please create an account first.");
+                    } else {
+                        System.out.print("Enter withdrawal amount: ");
+                        double withdrawAmount = scanner.nextDouble();
+                        currentAccount.withdraw(withdrawAmount);
+                    }
                     break;
+
                 case 4:
-                    System.out.println("View account details selected.");
+                    if (currentAccount == null) {
+                        System.out.println("No account found. Please create an account first.");
+                    } else {
+                        currentAccount.showAccountInfo();
+                    }
                     break;
+
                 case 5:
                     System.out.println("Exiting program...");
                     exit = true;
                     break;
+
                 default:
                     System.out.println("Invalid option. Please choose 1-5.");
             }
+
         }
 
         scanner.close();
